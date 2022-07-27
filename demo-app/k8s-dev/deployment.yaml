@@ -1,0 +1,47 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "demo-app"
+  namespace: "default"
+  labels:
+    app: "demo-app"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "demo-app"
+  template:
+    metadata:
+      labels:
+        app: "demo-app"
+    spec:
+      containers:
+      - name: "demo-app"
+        image: "asia-south1-docker.pkg.dev/solutions-engineering-312710/demo-app/c7bddd21c81d:currenttag"
+       
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "demo-app"
+  namespace: "default"
+  labels:
+    app: "demo-app"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "demo-app"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 60
+  - type: "Resource"
+    resource:
+      name: "memory"
+      targetAverageUtilization: 60
+
