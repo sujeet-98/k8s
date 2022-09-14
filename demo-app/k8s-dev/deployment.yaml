@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "demo-app"
-        image: "asia-south1-docker.pkg.dev/solutions-engineering-312710/demo-app/c7bddd21c81d:13"
+        image: "asia-south1-docker.pkg.dev/solutions-engineering-312710/demo-app/c7bddd21c81d:19"
        
 ---
 apiVersion: "autoscaling/v2beta1"
